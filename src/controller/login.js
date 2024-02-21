@@ -157,7 +157,7 @@ const ResetPassword = async (req, res) => {
     if (existingUser) {
       let newPassword = password.toString();
       const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-      await ForgotPass.findOneAndUpdate({ email: email }, { password: hashedPassword });
+      await User.findOneAndUpdate({ email: email }, { password: hashedPassword });
       res.status(200).json({ message: "Password reset successfully" });
     } else {
       return res

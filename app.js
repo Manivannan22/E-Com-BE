@@ -1,8 +1,8 @@
 import express, { json } from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import connectDb from "./src/utils/dbConnection.js";
 import Products from "./src/routes/product.js"
+import dotenv from "dotenv";
 dotenv.config();
 const PORT = process.env.PORT || 5000
 const app = express();

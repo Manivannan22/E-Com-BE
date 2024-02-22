@@ -6,7 +6,7 @@ const router = express.Router()
 router.post("/create_product", createProduct);
 router.get("/get_product", getProduct);
 router.get("/get_singleproduct", getSingleProduct);
-router.post("/add_ToCart", addToCart);
+router.post("/add_To_Cart", addToCart);
 router.get("/get_singleCart", getAddToCart);
 router.post("/sign_up", Register);
 router.post("/log_in", Login);

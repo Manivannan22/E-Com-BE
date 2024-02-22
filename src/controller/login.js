@@ -5,6 +5,8 @@ import Jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import User from "../model/signup.js";
 import ForgotPass from "../model/forgot_pass.js";
+import { STATUS_CODE } from "../utils/status.js";
+import  {response}  from "../utils/response.js";
 dotenv.config();
 const secretKey = process.env.JWT_KEY;
 const saltRounds = 10;
@@ -71,8 +73,8 @@ const ForgetPassword = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "manivannan.kavitha@kprinfo.com",
-        pass: "nxsrkevpfcbhkxdn",
+        user: process.env.AUTH_USER,
+        pass: process.env.AUTH_PASS
       },
     });
 

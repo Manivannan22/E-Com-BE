@@ -4,6 +4,14 @@ export const response = (message, data, status = true, code) => {
     data: data,
     status: status,
     code: code,
+  };  
+};
+
+export const nodataresponse = (message, status = true, code) => {
+  return {
+    message: message,
+    status: status,
+    code: code,
   };
 };
 

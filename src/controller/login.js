@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import User from "../model/signup.js";
 import ForgotPass from "../model/forgot_pass.js";
 import { STATUS_CODE } from "../utils/status.js";
+import  {nodataresponse}  from "../utils/response.js";
 import  {response}  from "../utils/response.js";
 dotenv.config();
 const secretKey = process.env.JWT_KEY;
@@ -15,7 +16,6 @@ const Register = async (req, res) => {
   const { email, name, password } = req.body;
   try {
     let existingUser = await User.findOne({ email });
-    console.log(existingUser);
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists" });
     }
@@ -23,14 +23,20 @@ const Register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
     console.log(hashedPassword);
     await User.create({ email, password: hashedPassword, name });
-    res
-      .status(200)
-      .json({ message: "User register successfully", status: true });
+    let resposeData = nodataresponse(
+      "User register successfull",
+      true,
+      STATUS_CODE.success
+    );
+    return res.send(resposeData);
+    // res
+    //   .status(200)
+    //   .json({ message: "User register successfully", status: true });
   } catch (error) {
     console.log(error);
     res
       .status(500)
-      .json({ message: "Something went wrong, please try again!" });
+      .json({ message: "internalServerError!" });
   }
 };
 
@@ -39,21 +45,31 @@ const Login = async (req, res) => {
     const { email, password } = req.body;
     let existingUser = await User.findOne({ email: email });
     if (!existingUser) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.status(401).json({ message: "Unauthorized" });
     }
     const isPasswordValid = await bcrypt.compare(
       password,
       existingUser.password
     );
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.status(401).json({ message: "Unauthorized" });
     }
     const token = Jwt.sign(
       { email: existingUser.email, id: existingUser._id },
       secretKey,
       { expiresIn: "5hr" }
     );
-    res.status(200).json({ token, message: "Login Successfully" });
+    let payload={
+      token,
+      existingUser
+    }
+    let resposeData = response(
+      "Successfully login",
+      payload,
+      true,
+      STATUS_CODE.success
+    );
+    return res.send(resposeData);
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Internal sever error" });
@@ -160,7 +176,13 @@ const ResetPassword = async (req, res) => {
       let newPassword = password.toString();
       const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
       await User.findOneAndUpdate({ email: email }, { password: hashedPassword });
-      res.status(200).json({ message: "Password reset successfully" });
+      let resposeData = nodataresponse(
+        "Successfully AddToCart",
+        true,
+        STATUS_CODE.success
+      );
+      return res.send(resposeData);
+      // res.status(200).json({ message: "Password reset successfully" });
     } else {
       return res
         .status(401)

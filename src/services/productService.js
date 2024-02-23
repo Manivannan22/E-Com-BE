@@ -1,6 +1,28 @@
 
 import Product from "../model/product.js";
 
+const createProductService = async(payload)=>{
+    try {
+        let result=await Product.find(payload)
+
+        if(result){
+            return {
+                status:true,
+                data:result
+            }
+        }
+        else{
+            return {
+                status:false,
+                data:result
+            }
+        }
+    } catch (error) {
+        console.log("Error From Product Service -Get Product",error);
+        throw error
+    }
+}
+
 const getProductService=async()=>{
     try {
         let result=await Product.find({ status: true })
@@ -26,8 +48,8 @@ const getProductService=async()=>{
 
 const getSingleProductService=async(id)=>{
     try {
-        let result=await Product.find({ id:id })
-
+        let result=await Product.find({ _id:id })
+console.log(result);
         if(result){
             return {
                 status:true,
@@ -94,4 +116,4 @@ const addToCartService=async(userId, productId)=>{
 }
 
 
-export { getProductService, getSingleProductService, getAddToCartService, addToCartService }
+export { createProductService, getProductService, getSingleProductService, getAddToCartService, addToCartService }

@@ -29,9 +29,6 @@ const Register = async (req, res) => {
       STATUS_CODE.success
     );
     return res.send(resposeData);
-    // res
-    //   .status(200)
-    //   .json({ message: "User register successfully", status: true });
   } catch (error) {
     console.log(error);
     res

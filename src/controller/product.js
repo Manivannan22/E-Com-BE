@@ -93,9 +93,9 @@ const getAddToCart = async (req, res) => {
 const addToCart = async (req, res) => {
   const { userId, productId } = req.body;
   try {
-    console.log(req.body);
+    console.log(req.body, "adding cattttttt");
     const productIdToFind = 2;
-    const foundProduct = products.find(
+    const foundProduct = Product.find(
       (product) => product.id === productIdToFind
     );
                                                   

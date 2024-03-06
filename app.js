@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 5000
 const app = express();
 app.use(json());
 app.use(cors({ origin: "*" }));
-
 app.use("/api", Products)
 connectDb
 app.listen(PORT, async () => {

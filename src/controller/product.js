@@ -51,6 +51,26 @@ const getProduct = async (req, res) => {
   }
 };
 
+// const getSingleProduct = async (req, res) => {
+//   const { id } = req.query;
+//   try {
+//     const get_SingleProducts = await getSingleProductService(id);
+//     console.log(get_SingleProducts);
+//     if (get_SingleProducts) {
+//       let resposeData = response(
+//         "Successfully Singleproduct",
+//         get_SingleProducts.data[0],
+//         true,
+//         STATUS_CODE.success
+//       );
+//       return res.send(resposeData);
+//     }
+//   } catch (error) {
+//     console.log("error", error);
+//     res.status(400).json({ message: "server error" });
+//   }
+// };
+
 const getSingleProduct = async (req, res) => {
   const { id } = req.query;
   try {
@@ -63,7 +83,6 @@ const getSingleProduct = async (req, res) => {
         true,
         STATUS_CODE.success
       );
-      return res.send(resposeData);
     }
   } catch (error) {
     console.log("error", error);
@@ -71,23 +90,42 @@ const getSingleProduct = async (req, res) => {
   }
 };
 
+// const getAddToCart = async (req, res) => {
+//   const { productId, quantity } = req.query;
+//   try {
+//     const getSingleCart = await getAddToCartService();
+//     if (getSingleCart) {
+//       let responseData = response(
+//         "Successfully getAddToCart",
+//         getSingleCart[0],
+//         true,
+//         STATUS_CODE.success
+//       );
+//       return res.send(resposeData);
+//     }
+//   } catch (error) {
+//     console.log("error", error);
+//     res.status(400).json({ message: "Not Defined" });
+//   }
+// };
+
 const getAddToCart = async (req, res) => {
   const { productId, quantity } = req.query;
   try {
     const getSingleCart = await getAddToCartService();
     if (getSingleCart) {
-      let resposeData = response(
+      let responseData = response(
         "Successfully getAddToCart",
         getSingleCart[0],
         true,
         STATUS_CODE.success
       );
-      return res.send(resposeData);
+      return res.send(responseData);
     }
-  } catch (error) {
+   } catch (error) {
     console.log("error", error);
     res.status(400).json({ message: "Not Defined" });
-  }
+   }
 };
 
 const addToCart = async (req, res) => {
